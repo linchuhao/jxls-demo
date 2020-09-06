@@ -5,13 +5,16 @@ import org.jxls.expression.JexlExpressionEvaluator;
 import org.jxls.transform.Transformer;
 import org.jxls.transform.poi.PoiTransformer;
 import org.jxls.util.JxlsHelper;
-import sun.misc.BASE64Encoder;
+
+import java.util.Base64;
+import java.util.Base64.Decoder;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
+import java.util.Base64.Encoder;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -73,7 +76,9 @@ public class JxlsUtils {
       filenameEncoder = filenameEncoder.replace("+", " ");
     } else if (agent.contains("Firefox")) {
       // 火狐浏览器
-      BASE64Encoder base64Encoder = new BASE64Encoder();
+
+      Encoder base64Encoder = Base64.getEncoder();
+//      BASE64Encoder base64Encoder = new BASE64Encoder();
       filenameEncoder = "=?utf-8?B?"
           + base64Encoder.encode(filename.getBytes("utf-8")) + "?=";
     } else {
